@@ -5,42 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Student Management</title>
     <link href="src/output.css" rel="stylesheet" />
+    <!-- Google Font: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body class="bg-gray-100 text-gray-800">
+    
     <!-- Top Navbar -->
     <header class="bg-white shadow-sm border-b border-gray-200">
       <div class="px-6 py-4">
         <h1 class="text-2xl font-bold text-blue-600">
           Student Management System
         </h1>
+        <!-- Mobile Menu Button -->
+        <button
+          id="menu-btn"
+          class="md:hidden text-gray-700 focus:outline-none"
+        >
+          <!-- Hamburger Icon -->
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
     </header>
 
-    <!-- Sidebar + Top Navbar -->
     <div class="flex min-h-screen">
       <!-- Sidebar -->
-      <aside class="w-64 bg-white border-r border-gray-200 shadow-sm">
-        <nav class="p-4 space-y-2">
+      <aside
+        id="sidebar"
+        class="fixed inset-y-0 md:py-2 left-0 w-64 bg-white border-r border-gray-200 shadow-sm transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300 z-50"
+      >
+        <!-- Close Button (mobile only) -->
+        <div class="flex justify-end md:hidden p-4">
+          <button id="close-btn" class="text-gray-500 hover:text-gray-700">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Nav Links -->
+        <nav class="p-4 pt-0 space-y-2">
           <a
-            href="index.html"
-            class="block px-4 py-3 rounded-lg text-gray-800 hover:bg-blue-100 font-medium"
+            href="dashboard.html"
+            class="block px-4 py-3 rounded-lg text-gray-800 hover:bg-gray-100 font-medium sidebar-link"
             >Dashboard</a
           >
           <a
-            href="student-list.html"
-            class="block px-4 py-3 rounded-lg text-gray-800 hover:bg-blue-100 font-medium"
-            >Student List</a
+            href="students.html"
+            class="block px-4 py-3 rounded-lg text-gray-800 hover:bg-gray-100 font-medium sidebar-link"
+            >Students</a
           >
-          <a
-            href="register-student.html"
-            class="block px-4 py-3 rounded-lg text-gray-800 hover:bg-blue-100 font-medium"
-            >Registration</a
-          >
-
           <div class="pt-4 border-t border-gray-200">
             <a
               href="login.html"
-              class="block px-4 py-3 rounded-lg text-red-600 hover:bg-red-100 font-medium"
+              class="block px-4 py-3 rounded-lg text-red-600 hover:bg-red-100 font-medium sidebar-link"
               >Logout</a
             >
           </div>
@@ -120,5 +158,32 @@
         </div>
       </main>
     </div>
+
+    <!-- JS for Toggle -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const closeBtn = document.getElementById("close-btn");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+      // Open sidebar
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+      });
+
+      // Close sidebar
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+      });
+
+      // Auto-close on link click (mobile only)
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 768) {
+            sidebar.classList.add("-translate-x-full");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
